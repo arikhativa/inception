@@ -1,6 +1,6 @@
 
 run:
-	docker-compose up -d --build
+	docker-compose -f ./srcs/docker-compose.yml up  -d --build
 
 stop:
 	docker-compose down
