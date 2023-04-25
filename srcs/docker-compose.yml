@@ -1,0 +1,43 @@
+version: "3.3"
+
+services:
+  nginx:
+    container_name: nginx
+    build:
+      context: .
+      dockerfile: ./nginx/nginx.dockerfile
+    restart: always
+    ports:
+      - 8080:8080
+      - 80:80
+    volumes:
+      - ./php/src:/var/www/html:delegated
+
+  exporter:
+    container_name: exporter
+    build:
+      context: .
+      dockerfile: ./exporter/exporter.dockerfile
+    ports:
+      - 9113:9113
+    command: -nginx.scrape-uri=http://nginx:8080/stub_status
+
+  php:
+    container_name: php
+    build:
+      context: .
+      dockerfile: ./php/php.dockerfile
+    restart: always
+    ports:
+      - 9000:9000
+    volumes:
+        - ./php/src:/var/www/html:delegated
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    restart: always
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
