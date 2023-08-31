@@ -1,12 +1,23 @@
 
-run:
-	docker-compose -f ./srcs/docker-compose.yml up  -d --build
 
-stop:
-	docker-compose down
+# nginx
+# NGINX_IMG := nginx
+# NGINX_DF := ./nginx/nginx_dep.dockerfile
 
-re: stop run
 
-build:
-	docker build -t nginx_dup --build-arg ENABLED_MODULES="ndk lua" -f ./nginx/nginx_dep.dockerfile .
+# DOCKER-COMPOSE
+DC_FILE := ./srcs/docker-compose.yml
+DC := docker-compose -f $(DC_FILE)
+
+all:
+	$(DC) up -d --build
+
+clear:
+	$(DC) down
+
+re:
+	$(DC) ./srcs/docker-compose.yml restart
+
+# build:
+# 	docker build -t $(NGINX_IMG) -f $(NGINX_DF) .
 	

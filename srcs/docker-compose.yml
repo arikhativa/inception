@@ -1,10 +1,42 @@
+
 version: "3.3"
+
+networks:
+  network:
+    driver: bridge
 
 services:
   nginx:
     container_name: nginx
     build: ./requirements/nginx/
     restart: always
+    networks:
+      - network
     ports:
-      - 80:80
       - 443:443
+    env_file:
+      - .env
+
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    networks:
+      - network
+    restart: always
+    env_file:
+      - .env
+
+  wordpress:
+    container_name: wordpress
+    depends_on:
+      - mariadb
+    build: ./requirements/wordpress/
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - network
