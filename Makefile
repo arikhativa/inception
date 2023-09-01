@@ -16,7 +16,7 @@ clear:
 	$(DC) down
 
 re:
-	$(DC) ./srcs/docker-compose.yml restart
+	$(DC) restart
 
 # build:
 # 	docker build -t $(NGINX_IMG) -f $(NGINX_DF) .
