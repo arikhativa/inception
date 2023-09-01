@@ -5,6 +5,20 @@ networks:
   network:
     driver: bridge
 
+volumes:
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/yrabby/data/mysql
+      o: bind
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/yrabby/data/wordpress
+      o: bind
+
 services:
   nginx:
     container_name: nginx
