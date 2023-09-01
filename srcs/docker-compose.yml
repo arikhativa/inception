@@ -6,5 +6,4 @@ services:
     build: ./requirements/nginx/
     restart: always
     ports:
-      - 80:80
       - 443:443
