@@ -5,19 +5,19 @@ networks:
   network:
     driver: bridge
 
-# volumes:
-#   mariadb_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /home/yrabby/data/mysql
-#       o: bind
-#   wordpress_data:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: /home/yrabby/data/wordpress
-#       o: bind
+volumes:
+  # mariadb_data:
+  #   driver: local
+  #   driver_opts:
+  #     type: none
+  #     device: /home/yrabby/data/mysql
+  #     o: bind
+  wordpress_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/yrabby/data/wordpress
+      o: bind
 
 services:
   nginx:
@@ -28,6 +28,10 @@ services:
       - network
     ports:
       - 443:443
+    volumes:
+      - wordpress_data:/var/www/html
+    # TODO maybe remove
+    # TODO im still not sure how to pass / generate the ssl cert
     env_file:
       - .env
 
@@ -42,15 +46,15 @@ services:
   #   env_file:
   #     - .env
 
-  # wordpress:
-  #   container_name: wordpress
-  #   depends_on:
-  #     - mariadb
-  #   build: ./requirements/wordpress/
-  #   restart: always
-  #   env_file:
-  #     - .env
-  #   volumes:
-  #     - wordpress_data:/var/www/html
-  #   networks:
-  #     - network
+  wordpress:
+    container_name: wordpress
+    # depends_on:
+    #   - mariadb
+    build: ./requirements/wordpress/
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - network

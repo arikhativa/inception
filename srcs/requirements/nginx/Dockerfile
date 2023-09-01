@@ -8,11 +8,10 @@ RUN apt install nginx -y openssl
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log
 
 # Copy nginx config
-COPY ./conf/nginx.conf /etc/nginx
+COPY ./conf/nginx.conf /etc/nginx/conf.d
 
-# SSL
+# Create SSL pair
 RUN mkdir -p /etc/nginx/ssl
-
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
        -out /etc/nginx/ssl/yrabby.crt \
        -keyout /etc/nginx/ssl/yrabby.key \
