@@ -4,9 +4,31 @@ wp --allow-root core is-installed
 if [ $? -eq 0 ]; then
 	echo "wordpress already installed"
 else
+
 cd /var/www/html
 
+# Wait for mysql to be up and running
+start_time=$(date +%s)
+timeout_duration=60
 
+while true; do
+	mysql -u $MYSQL_USER -h $MYSQL_HOSTNAME -p"$MYSQL_PASSWORD" -e "show databases" > /dev/null 2>&1
+
+    if [ $? -eq 0 ]; then
+		# Found mysql
+        break
+    else
+        current_time=$(date +%s)
+        elapsed_time=$((current_time - start_time))
+
+        if [ $elapsed_time -ge $timeout_duration ]; then
+			echo "Timeout: Couldn't connect to mysql"
+			exit 1
+        else
+            sleep 1
+        fi
+    fi
+done
 
 wp core download --allow-root --version=6.3 --locale=en_US
 

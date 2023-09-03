@@ -4,12 +4,7 @@ RUN apt update
 RUN apt install -y mariadb-server
 
 
-# COPY init-db.sh /usr/local/bin/init-db.sh
-# RUN chmod +x /usr/local/bin/init-db.sh
-
-
 # TODO add clean
-
 
 
 RUN mkdir -p /var/run/mysqld \

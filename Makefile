@@ -4,7 +4,6 @@
 # NGINX_IMG := nginx
 # NGINX_DF := ./nginx/nginx_dep.dockerfile
 
-
 # DOCKER-COMPOSE
 DC_FILE := ./srcs/docker-compose.yml
 DC := docker-compose -f $(DC_FILE)
@@ -15,7 +14,9 @@ all:
 clear:
 	$(DC) down
 
-re:
+re: clear all
+
+restart:
 	$(DC) restart
 
 # build:
