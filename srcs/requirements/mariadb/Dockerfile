@@ -1,9 +1,12 @@
 FROM debian:buster
 
-RUN apt-get update
-RUN apt-get install -y mariadb-server \
-    mariadb-client \
-    vim
+RUN apt update
+RUN apt install -y mariadb-server
+
+
+# COPY init-db.sh /usr/local/bin/init-db.sh
+# RUN chmod +x /usr/local/bin/init-db.sh
+
 
 # TODO add clean
 
@@ -26,6 +29,8 @@ RUN chmod +x /usr/local/bin/mariadb.sh
 # RUN chmod +x /usr/local/bin/wordpress.sql
 
 ENTRYPOINT [ "/usr/local/bin/mariadb.sh" ]
+
+EXPOSE 3306
 
 #Command to launch mariadb and enable the database to listen globally - also can be put on mysqldump.cnf file
 CMD ["mysqld", "--bind-address=0.0.0.0"]

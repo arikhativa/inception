@@ -5,20 +5,21 @@ then
 	echo "Database already exists"
 else
 
-SQL_COMMANDS=$(cat <<EOF
-CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
-GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
-FLUSH PRIVILEGES;
-EOF
-)
+service mysql start
 
-mysql -h "$MYSQL_HOSTNAME" -u "$MYSQL_USER" -p "$MYSQL_PASSWORD" -e "$SQL_COMMANDS"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';"
+mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
 
-if [ $? -eq 0 ]; then
-	echo "Database '$MYSQL_DATABASE' created, and privileges granted."
-else
-	echo "Error: Unable to create the database or grant privileges."
-fi
+# SQL_COMMANDS=$(cat <<EOF
+# CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+# GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
+# FLUSH PRIVILEGES;
+# EOF
+# )
+
+# mysql -h "$MYSQL_HOSTNAME" -u "$MYSQL_USER" -p "$MYSQL_PASSWORD" -e "$SQL_COMMANDS"
 
 fi
 

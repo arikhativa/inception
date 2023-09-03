@@ -6,6 +6,8 @@ if [ $? -eq 0 ]; then
 else
 cd /var/www/html
 
+
+
 wp core download --allow-root --version=6.3 --locale=en_US
 
 wp config create --allow-root --dbname=${MYSQL_DATABASE} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${MYSQL_HOSTNAME}

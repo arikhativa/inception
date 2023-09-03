@@ -19,6 +19,8 @@ RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
 
 RUN chmod 600 /etc/nginx/ssl/yrabby.key /etc/nginx/ssl/yrabby.crt
 
+WORKDIR /var/www/html
+
 EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]

@@ -27,6 +27,8 @@ RUN chmod +x /usr/local/bin/create_wordpress.sh
 
 WORKDIR /var/www/html/
 
+EXPOSE 9000
+
 ENTRYPOINT ["/usr/local/bin/create_wordpress.sh"]
 
 CMD ["php-fpm7.3", "--nodaemonize"]
