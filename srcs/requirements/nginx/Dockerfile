@@ -4,6 +4,10 @@ FROM debian:buster
 RUN apt update 
 RUN apt install nginx -y openssl
 
+# Remove redandent files
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 # Set Logs
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && ln -sf /dev/stderr /var/log/nginx/error.log
 

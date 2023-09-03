@@ -1,6 +1,6 @@
 #!/bin/sh
 
-wp --allow-root core is-installed
+wp --allow-root core is-installed > /dev/null 2>&1
 if [ $? -eq 0 ]; then
 	echo "wordpress already installed"
 else
@@ -31,11 +31,8 @@ while true; do
 done
 
 wp core download --allow-root --version=6.3 --locale=en_US
-
 wp config create --allow-root --dbname=${MYSQL_DATABASE} --dbuser=${MYSQL_USER} --dbpass=${MYSQL_PASSWORD} --dbhost=${MYSQL_HOSTNAME}
-
 wp core install --allow-root --url=${DOMAIN_NAME} --title=${WP_TITLE} --admin_user=${WP_ADMIN_USER} --admin_password=${WP_ADMIN_PASSWORD} --admin_email=${WP_ADMIN_EMAIL}
-
 wp user create --allow-root "${WP_USER}" "${WP_EMAIL}" --user_pass="${WP_PASSWORD}" --role=author
 
 fi
