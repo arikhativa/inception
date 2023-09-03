@@ -18,6 +18,12 @@ volumes:
       type: none
       device: /home/yrabby/data/wordpress
       o: bind
+  adminer:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/yrabby/data/adminer
+      o: bind
 
 services:
   nginx:
@@ -30,6 +36,7 @@ services:
       - 443:443
     volumes:
       - wordpress:/var/www/html
+      - adminer:/var/www/adminer
 
   mariadb:
     container_name: mariadb
@@ -54,3 +61,15 @@ services:
       - wordpress:/var/www/html
     networks:
       - network
+
+# Bonus
+  adminer:
+    container_name: adminer
+    build: ./requirements/bonus/adminer/
+    depends_on:
+      - mariadb
+    networks:
+      - network
+    volumes:
+      - adminer:/var/www/adminer
+    restart: always
