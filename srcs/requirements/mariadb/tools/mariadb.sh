@@ -1,25 +1,23 @@
 #!/bin/sh
 
+# mysql -h "$MYSQL_HOSTNAME" -u "$MYSQL_USER" -p$MYSQL_PASSWORD -e "show tables from $MYSQL_DATABASE;"
+# if [ $? -eq 0 ]; then
+# 	echo "Database already exists"
+# else
+
+
 if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]
 then 
 	echo "Database already exists"
 else
 
-service mysql start
+sed -i 's/skip-networking/#skip-networking/g' /etc/my.cnf.d/mariadb-server.cnf
+# sed -i 's/#bind-address/bind-address/g' /etc/my.cnf.d/mariadb-server.cnf
 
-mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;"
-mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
-mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';"
-mysql -u root -p"$MYSQL_ROOT_PASSWORD" -e "FLUSH PRIVILEGES;"
-
-# SQL_COMMANDS=$(cat <<EOF
-# CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
-# GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO 'root'@'%' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
-# FLUSH PRIVILEGES;
-# EOF
-# )
-
-# mysql -h "$MYSQL_HOSTNAME" -u "$MYSQL_USER" -p "$MYSQL_PASSWORD" -e "$SQL_COMMANDS"
+echo "CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;" > /tmp/init.sql
+echo "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';" >> /tmp/init.sql
+echo "GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'%';" >> /tmp/init.sql
+echo "FLUSH PRIVILEGES;" >> /tmp/init.sql
 
 fi
 

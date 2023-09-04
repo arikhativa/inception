@@ -11,7 +11,7 @@ COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 
 # Install adminer
 RUN mkdir -p /var/www/adminer
-RUN wget "http://www.adminer.org/latest.php" -O /var/www/adminer/adminer.php
+RUN wget "https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php" -O /var/www/adminer/adminer.php
 RUN chown -R www-data:www-data /var/www/adminer/adminer.php 
 RUN chmod 755 /var/www/adminer/adminer.php
 

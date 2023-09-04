@@ -33,6 +33,7 @@ services:
     networks:
       - network
     ports:
+      - 8080:8080
       - 443:443
     volumes:
       - wordpress:/var/www/html
