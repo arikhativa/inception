@@ -66,6 +66,7 @@ services:
 # Bonus
   adminer:
     container_name: adminer
+    restart: always
     build: ./requirements/bonus/adminer/
     depends_on:
       - mariadb
@@ -73,4 +74,16 @@ services:
       - network
     volumes:
       - adminer:/var/www/adminer
+  
+  ftp:
+    container_name: ftp
     restart: always
+    build: ./requirements/bonus/ftp/
+    depends_on:
+      - wordpress
+    networks:
+      - network
+    volumes:
+      - wordpress:/var/www/html
+    env_file:
+      - .env
