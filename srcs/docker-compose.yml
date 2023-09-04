@@ -87,3 +87,12 @@ services:
       - wordpress:/var/www/html
     env_file:
       - .env
+
+  redis:
+    container_name: redis
+    restart: always
+    build: ./requirements/bonus/redis/
+    depends_on:
+      - wordpress
+    networks:
+      - network
