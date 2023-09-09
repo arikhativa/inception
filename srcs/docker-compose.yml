@@ -103,3 +103,14 @@ services:
     build: ./requirements/bonus/site/
     ports:
       - 8081:80
+    networks:
+      - network
+
+  uptime-kuma:
+    container_name: uptime-kuma
+    restart: always
+    build: ./requirements/bonus/uptime-kuma/
+    ports:
+      - 3001:3001
+    networks:
+      - network
