@@ -1,0 +1,16 @@
+my-app
+├── assets
+│   ├── images
+│   ├── scripts
+│   └── styles
+└── src
+    ├── components
+    ├── constants
+    ├── models
+    ├── routes
+    ├── services
+    ├── views
+    ├── utilities
+    ├── index.css
+    ├── index.js
+    └── serviceWorker.js

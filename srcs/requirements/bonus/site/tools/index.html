@@ -2,21 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Static Website</title>
+	<meta name="description" content="a static HTML, JavaScript website">
+	<meta name="author" content="Yoav Rabby">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yrabby Static</title>
     <link rel="stylesheet" href="style.css">
+	<base href="http://yrabby.42.fr/" target="_blank">
 </head>
 <body>
-    <header>
-        <h1>Welcome to My Website</h1>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
-    </nav>
+	<header>
+		<h1>A Generic Header</h1>
+	</header>
+	<nav>
+		<ul>
+			<li><iframe src="/iframes/rocks.html" title="the rocks iframe"></iframe></li>
+			<li><iframe src="/iframes/barns.html" title="the barns iframe"></iframe></li>
+			<li><iframe src="/iframes/buses.html" title="the buses iframe"></iframe></li>
+		</ul>
+	</nav>
     <main>
         <section>
             <h2>About Us</h2>
@@ -28,7 +31,7 @@
         </section>
     </main>
     <footer>
-        <p>&copy; 2023 Your Website</p>
+        <p>&copy; YrabbyStatic</p>
     </footer>
     <script src="script.js"></script>
 </body>
