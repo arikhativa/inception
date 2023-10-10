@@ -33,6 +33,7 @@ services:
     networks:
       - network
     ports:
+      - 3002:3002
       - 3001:3001
       - 443:443
     volumes:
@@ -101,8 +102,6 @@ services:
     container_name: site
     restart: always
     build: ./requirements/bonus/site/
-    ports:
-      - 8081:80
     networks:
       - network
 
