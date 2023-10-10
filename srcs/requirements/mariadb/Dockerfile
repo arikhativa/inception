@@ -20,4 +20,4 @@ ENTRYPOINT [ "/usr/local/bin/mariadb.sh" ]
 
 EXPOSE 3306
 
-CMD ["mysqld", "--init-file=/tmp/init.sql"]
+CMD ["mysqld", "--init-file=/etc/mysql/init.sql"]

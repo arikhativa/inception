@@ -1,10 +1,4 @@
 
-
-# nginx
-# NGINX_IMG := nginx
-# NGINX_DF := ./nginx/nginx_dep.dockerfile
-
-# DOCKER-COMPOSE
 DC_FILE := ./srcs/docker-compose.yml
 DC := docker-compose -f $(DC_FILE)
 
@@ -14,11 +8,9 @@ all:
 clear:
 	$(DC) down
 
-re: clear all
+fclear:
+	$(DC) down --volumes --rmi local
 
-restart:
-	$(DC) restart
+re: fclear all
 
-# build:
-# 	docker build -t $(NGINX_IMG) -f $(NGINX_DF) .
-	
+.PHONY: all clear fclear re
