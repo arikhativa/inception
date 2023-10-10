@@ -11,6 +11,9 @@ clear:
 fclear:
 	$(DC) down --volumes --rmi local
 
-re: fclear all
+re: clear all
 
-.PHONY: all clear fclear re
+restart: 
+	$(DC) restart
+
+.PHONY: restart all clear fclear re

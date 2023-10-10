@@ -33,6 +33,7 @@ services:
     networks:
       - network
     ports:
+      - 3001:3001
       - 443:443
     volumes:
       - wordpress:/var/www/html
@@ -109,7 +110,5 @@ services:
     container_name: uptime-kuma
     restart: always
     build: ./requirements/bonus/uptime-kuma/
-    ports:
-      - 3001:3001
     networks:
       - network
