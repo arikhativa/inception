@@ -61,6 +61,9 @@ wp plugin install redis-cache --allow-root --activate
 wp plugin update --all --allow-root
 wp redis enable --allow-root
 
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
+
 fi
 
 exec "$@"
