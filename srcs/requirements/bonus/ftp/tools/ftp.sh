@@ -8,9 +8,6 @@ mkdir -p /var/run/vsftpd/empty
 chown $FTP_USER:$FTP_USER /home/$FTP_USER/ftp
 chmod a-w /home/$FTP_USER/ftp
 
-# TODO this didnt work
-chown -R $FTP_USER:$FTP_USER /var/www/html
-
 echo secure_chroot_dir=/home/$FTP_USER/ftp >> /etc/vsftpd.conf
 
 exec "$@"
