@@ -1,6 +1,6 @@
 
 DC_FILE := ./srcs/docker-compose.yml
-DC := docker-compose -f $(DC_FILE)
+DC := docker compose -f $(DC_FILE)
 
 all:
 	$(DC) up -d --build
